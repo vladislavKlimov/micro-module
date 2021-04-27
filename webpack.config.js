@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const deps = require("./package.json").dependencies;
+
 module.exports = {
     mode: 'development',
     devServer: {
@@ -7,6 +9,13 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /bootstrap\.js$/,
+                loader: "bundle-loader",
+                options: {
+                    lazy: true,
+                },
+            },
             {
                 /* The following line to ask babel
                      to compile any file with extension
@@ -35,6 +44,17 @@ module.exports = {
                     'remoteEntry.js',
                 exposes: {
                     "./App": "./src/App",
+                },
+                shared: {
+                    ...deps,
+                    react: {
+                        singleton: true,
+                        requiredVersion: deps.react,
+                    },
+                    "react-dom": {
+                        singleton: true,
+                        requiredVersion: deps["react-dom"],
+                    },
                 },
             }
         ),
