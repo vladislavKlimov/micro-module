@@ -7,6 +7,9 @@ module.exports = {
     devServer: {
         port: 8083,
     },
+    optimization: {
+        minimize: false,
+    },
     module: {
         rules: [
             {
@@ -45,6 +48,7 @@ module.exports = {
                 exposes: {
                     "./App": "./src/App",
                 },
+                library: { type: 'var', name: 'firstModule' },
                 shared: {
                     ...deps,
                     react: {
