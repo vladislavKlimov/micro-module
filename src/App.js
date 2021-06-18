@@ -12,7 +12,7 @@ export default function App() {
         <div>
             <Typography>Это пример удаленного приложения</Typography>
             <Button onClick={() => alert('Это материал ui')}>Это что?</Button>
-            <Router basename="/1">
+            <Router basename="/firstModule">
                 <div>
                     <nav>
                         <ul>
